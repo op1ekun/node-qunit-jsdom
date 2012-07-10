@@ -1,17 +1,18 @@
 {
-    "name": "qunit",
+    "name": "qunit-jsdom",
     "description": "QUnit testing framework for nodejs",
     "version": "0.5.5",
     "author": "Oleg Slobodskoi <oleg008@gmail.com>",
     "contributors": [
         {"name": "Jonathan Buchanan"},
-        {"name": "Ashar Voultoiz"}
+        {"name": "Ashar Voultoiz"},
+        {"name": "Lukasz Piatkowski"}
     ],
     "repository": {
         "type": "git",
-        "url": "http: //github.com/kof/node-qunit.git"
+        "url": "http: //github.com/kof/node-qunit-jsdom.git"
     },
-    "keywords": ["TDD", "QUnit", "unit", "testing", "tests", "async"],
+    "keywords": ["TDD", "QUnit", "unit", "testing", "tests", "async", "jsdom"],
     "bin": {"qunit": "./bin/cli.js"},
     "engines": {"node": ">= 0.6.x <= 0.8.x"},
     "scripts": {
