@@ -22,52 +22,13 @@ http://github.com/jquery/qunit
 
 ### API
 
-http://docs.jquery.com/QUnit
+    http://api.qunitjs.com
 
-#### Setup
-    // Add a test to run.
-    test(name, expected, test)
-
-    // Add an asynchronous test to run. The test must include a call to start().
-    asyncTest(name, expected, test)
-
-    // Specify how many assertions are expected to run within a test.
-    expect(amount);
+#### The only exception
 
     // Separate tests into modules.
-    module(name, lifecycle)
-
-#### Assertions
-    // A boolean assertion, equivalent to JUnit's assertTrue. Passes if the first argument is truthy.
-    ok(state, message)
-
-    // A comparison assertion, equivalent to JUnit's assertEquals. Uses "==".
-    equal(actual, expected, message)
-
-    // A comparison assertion, equivalent to JUnit's assertEquals. Uses "==".
-    notEqual(actual, expected, message)
-
-    // A deep recursive comparison assertion, working on primitive types, arrays and objects.
-    deepEqual(actual, expected, message)
-
-    // A deep recursive comparison assertion, working on primitive types, arrays and objects, with the result inverted, passing // when some property isn't equal.
-    notDeepEqual(actual, expected, message)
-
-    // A comparison assertion. Uses "===".
-    strictEqual(actual, expected, message)
-
-    // A stricter comparison assertion then notEqual. Uses "===".
-    notStrictEqual(actual, expected, message)
-
-    // Assertion to test if a callback throws an exception when run.
-    raises(actual, message)
-
-#### Asynchronous Testing
-    // Start running tests again after the testrunner was stopped.
-    start()
-
-    // Stop the testrunner to wait to async tests to run. Call start() to continue.
-    stop(timeout)
+    // Use `QUnit` namespace, because `module` is reserved
+    QUnit.module(name, lifecycle)
 
 ### Usage
 
@@ -206,67 +167,62 @@ variable name to be used for the namespace object, followed by a colon:
 
 QUnit API and code which have to be tested are already loaded and attached to the global context.
 
-Because nodejs modules reserved "module" namespace we have to redefine it from QUnit namespace.
-
-    module = QUnit.module;
-
-Basically QUnit API can ba accessed directly from global object or optional via "QUnit" object.
-
-    QUnit.test;
-
 Some tests examples
 
-    test("a basic test example", function() {
-      ok(true, "this test is fine");
-      var value = "hello";
-      equals("hello", value, "We expect value to be hello");
+
+    test("a basic test example", function (assert) {
+        ok(true, "this test is fine");
+        var value = "hello";
+        equal("hello", value, "We expect value to be hello");
     });
 
-    module("Module A");
+    QUnit.module("Module A");
 
-    test("first test within module", 1, function() {
-      ok(true, "all pass");
+    test("first test within module", 1, function (assert) {
+        ok(true, "a dummy");
     });
 
-    test("second test within module", 2, function() {
-      ok(true, "all pass");
+    test("second test within module", 2, function (assert) {
+        ok(true, "dummy 1 of 2");
+        ok(true, "dummy 2 of 2");
     });
 
-    module("Module B", {
-        setup: function() {
+    QUnit.module("Module B", {
+        setup: function () {
             // do some initial stuff before every test for this module
         },
-        teardown: function() {
+        teardown: function () {
             // do some stuff after every test for this module
         }
     });
 
-    test("some other test", function() {
-      expect(2);
-      equals(true, false, "failing test");
-      equals(true, true, "passing test");
+    test("some other test", function (assert) {
+        expect(2);
+        equal(true, false, "failing test");
+        equal(true, true, "passing test");
     });
 
-    module("Module C", {
+    QUnit.module("Module C", {
         setup: function() {
             // setup a shared environment for each test
-            this.options = {test: 123};
+            this.options = { test: 123 };
         }
     });
 
-    test("this test is using shared environment", 1, function() {
-      same({test:123}, this.options, "passing test");
+    test("this test is using shared environment", 1, function (assert) {
+        deepEqual({ test: 123 }, this.options, "passing test");
     });
 
-    test("this is an async test example", function() {
+    test("this is an async test example", function (assert) {
         expect(2);
         stop();
-        setTimeout(function() {
+        setTimeout(function () {
             ok(true, "finished async test");
             strictEqual(true, true, "Strict equal assertion uses ===");
             start();
         }, 100);
     });
+
 
 ### Run tests
 
