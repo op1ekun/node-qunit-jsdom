@@ -1,3 +1,6 @@
 [submodule "support/qunit"]
 	path = support/qunit
 	url = https://github.com/jquery/qunit.git
+[submodule "deps/node-XMLHttpRequest"]
+	path = deps/node-XMLHttpRequest
+	url = git@github.com:op1ekun/node-XMLHttpRequest.git
