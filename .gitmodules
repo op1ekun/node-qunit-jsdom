@@ -4,3 +4,6 @@
 [submodule "deps/node-XMLHttpRequest"]
 	path = deps/node-XMLHttpRequest
 	url = git@github.com:op1ekun/node-XMLHttpRequest.git
+[submodule "deps/node-localStorage"]
+	path = deps/node-localStorage
+	url = https://github.com/coolaj86/node-localStorage.git
