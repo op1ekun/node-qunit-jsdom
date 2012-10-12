@@ -7,3 +7,6 @@
 [submodule "deps/underscore"]
 	path = deps/underscore
 	url = git://github.com/documentcloud/underscore.git
+[submodule "deps/tracejs"]
+	path = deps/tracejs
+	url = git://github.com/chrisdickinson/tracejs.git
